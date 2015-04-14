@@ -13,9 +13,12 @@ namespace CSharpProjekt
         public string title;
         public string category;
         public string author;
-        string img_url;
+        //weburl of the image
+        public string img_url;
+        //filetype with the . (.jpg, .bmp, .gif, ...)
+        public string filetype;
         public int height;
         public int width;
-        string thumbnail_url;
+        public string thumbnail_url;
     }
 }
