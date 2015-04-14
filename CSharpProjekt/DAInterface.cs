@@ -9,5 +9,9 @@ namespace CSharpProjekt
     //Class used for communication with DeviantArt as well as Download the images.
     class DAInterface
     {
+        public void downloadImage(DAImage ic)
+        {
+
+        }
     }
 }
