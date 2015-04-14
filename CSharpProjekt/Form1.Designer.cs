@@ -35,6 +35,10 @@
             this.gallery_tab_page = new System.Windows.Forms.TabPage();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.search_flow_layout = new System.Windows.Forms.FlowLayoutPanel();
+            this.newest_flow_layout = new System.Windows.Forms.FlowLayoutPanel();
+            this.hot_flow_layout = new System.Windows.Forms.FlowLayoutPanel();
+            this.local_flow_layout = new System.Windows.Forms.FlowLayoutPanel();
             this.tabbed_views.SuspendLayout();
             this.hot_tab_page.SuspendLayout();
             this.newest_tab_page.SuspendLayout();
@@ -57,6 +61,7 @@
             // 
             // hot_tab_page
             // 
+            this.hot_tab_page.Controls.Add(this.hot_flow_layout);
             this.hot_tab_page.Location = new System.Drawing.Point(4, 22);
             this.hot_tab_page.Name = "hot_tab_page";
             this.hot_tab_page.Padding = new System.Windows.Forms.Padding(3);
@@ -67,6 +72,7 @@
             // 
             // newest_tab_page
             // 
+            this.newest_tab_page.Controls.Add(this.newest_flow_layout);
             this.newest_tab_page.Location = new System.Drawing.Point(4, 22);
             this.newest_tab_page.Name = "newest_tab_page";
             this.newest_tab_page.Padding = new System.Windows.Forms.Padding(3);
@@ -77,6 +83,7 @@
             // 
             // tag_search_tab_page
             // 
+            this.tag_search_tab_page.Controls.Add(this.search_flow_layout);
             this.tag_search_tab_page.Controls.Add(this.button1);
             this.tag_search_tab_page.Controls.Add(this.textBox1);
             this.tag_search_tab_page.Location = new System.Drawing.Point(4, 22);
@@ -89,6 +96,7 @@
             // 
             // gallery_tab_page
             // 
+            this.gallery_tab_page.Controls.Add(this.local_flow_layout);
             this.gallery_tab_page.Location = new System.Drawing.Point(4, 22);
             this.gallery_tab_page.Name = "gallery_tab_page";
             this.gallery_tab_page.Padding = new System.Windows.Forms.Padding(3);
@@ -113,13 +121,37 @@
             this.button1.Text = "Search";
             this.button1.UseVisualStyleBackColor = true;
             // 
+            // search_flow_layout
             // 
+            this.search_flow_layout.Location = new System.Drawing.Point(8, 32);
+            this.search_flow_layout.Name = "search_flow_layout";
+            this.search_flow_layout.Size = new System.Drawing.Size(692, 598);
+            this.search_flow_layout.TabIndex = 2;
             // 
+            // newest_flow_layout
             // 
+            this.newest_flow_layout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.newest_flow_layout.Location = new System.Drawing.Point(3, 3);
+            this.newest_flow_layout.Name = "newest_flow_layout";
+            this.newest_flow_layout.Size = new System.Drawing.Size(702, 632);
+            this.newest_flow_layout.TabIndex = 0;
             // 
+            // hot_flow_layout
             // 
+            this.hot_flow_layout.AutoScroll = true;
+            this.hot_flow_layout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.hot_flow_layout.Location = new System.Drawing.Point(3, 3);
+            this.hot_flow_layout.Name = "hot_flow_layout";
+            this.hot_flow_layout.Size = new System.Drawing.Size(702, 632);
+            this.hot_flow_layout.TabIndex = 0;
             // 
+            // local_flow_layout
             // 
+            this.local_flow_layout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.local_flow_layout.Location = new System.Drawing.Point(3, 3);
+            this.local_flow_layout.Name = "local_flow_layout";
+            this.local_flow_layout.Size = new System.Drawing.Size(702, 632);
+            this.local_flow_layout.TabIndex = 0;
             // 
             // Form1
             // 
@@ -148,6 +180,10 @@
         private System.Windows.Forms.TabPage gallery_tab_page;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.FlowLayoutPanel hot_flow_layout;
+        private System.Windows.Forms.FlowLayoutPanel newest_flow_layout;
+        private System.Windows.Forms.FlowLayoutPanel search_flow_layout;
+        private System.Windows.Forms.FlowLayoutPanel local_flow_layout;
 
 
     }
