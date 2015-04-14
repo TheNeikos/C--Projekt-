@@ -36,7 +36,10 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.tabbed_views.SuspendLayout();
+            this.hot_tab_page.SuspendLayout();
+            this.newest_tab_page.SuspendLayout();
             this.tag_search_tab_page.SuspendLayout();
+            this.gallery_tab_page.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabbed_views
@@ -57,7 +60,7 @@
             this.hot_tab_page.Location = new System.Drawing.Point(4, 22);
             this.hot_tab_page.Name = "hot_tab_page";
             this.hot_tab_page.Padding = new System.Windows.Forms.Padding(3);
-            this.hot_tab_page.Size = new System.Drawing.Size(790, 334);
+            this.hot_tab_page.Size = new System.Drawing.Size(708, 638);
             this.hot_tab_page.TabIndex = 0;
             this.hot_tab_page.Text = "Hot Deviations";
             this.hot_tab_page.UseVisualStyleBackColor = true;
@@ -67,7 +70,7 @@
             this.newest_tab_page.Location = new System.Drawing.Point(4, 22);
             this.newest_tab_page.Name = "newest_tab_page";
             this.newest_tab_page.Padding = new System.Windows.Forms.Padding(3);
-            this.newest_tab_page.Size = new System.Drawing.Size(790, 334);
+            this.newest_tab_page.Size = new System.Drawing.Size(708, 638);
             this.newest_tab_page.TabIndex = 1;
             this.newest_tab_page.Text = "Newest";
             this.newest_tab_page.UseVisualStyleBackColor = true;
@@ -89,7 +92,7 @@
             this.gallery_tab_page.Location = new System.Drawing.Point(4, 22);
             this.gallery_tab_page.Name = "gallery_tab_page";
             this.gallery_tab_page.Padding = new System.Windows.Forms.Padding(3);
-            this.gallery_tab_page.Size = new System.Drawing.Size(790, 334);
+            this.gallery_tab_page.Size = new System.Drawing.Size(708, 638);
             this.gallery_tab_page.TabIndex = 3;
             this.gallery_tab_page.Text = "Local Gallery";
             this.gallery_tab_page.UseVisualStyleBackColor = true;
@@ -110,6 +113,14 @@
             this.button1.Text = "Search";
             this.button1.UseVisualStyleBackColor = true;
             // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -119,8 +130,11 @@
             this.Name = "Form1";
             this.Text = "Deviantart Browser";
             this.tabbed_views.ResumeLayout(false);
+            this.hot_tab_page.ResumeLayout(false);
+            this.newest_tab_page.ResumeLayout(false);
             this.tag_search_tab_page.ResumeLayout(false);
             this.tag_search_tab_page.PerformLayout();
+            this.gallery_tab_page.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
