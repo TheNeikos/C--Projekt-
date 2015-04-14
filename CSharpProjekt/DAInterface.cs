@@ -15,6 +15,10 @@ namespace CSharpProjekt
         //We should consider using AppData\Local\da_app\ (dir da_app will be made at installation)
         //C:%HOMEPATH%\AppData\Local\da_app
         private string tempdir = @"C:%HOMEPATH%\Downloads\";
+        /// <summary>
+        /// download the image located at dai.img_url
+        /// </summary>
+        /// <param name="dai">DAImage class containing core information about a deviation</param>
         public void downloadImage(DAImage dai)
         {
             webclient.DownloadFile(dai.img_url, tempdir + dai.d_ID + dai.filetype);
