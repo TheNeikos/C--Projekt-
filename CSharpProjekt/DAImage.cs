@@ -5,8 +5,10 @@ using System.Text;
 
 namespace CSharpProjekt
 {
+    //core information about a picture
     class DAImage
     {
+        //deviation ID
         public string d_ID;
         public string title;
         public string category;
