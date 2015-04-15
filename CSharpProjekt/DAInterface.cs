@@ -7,14 +7,33 @@ using System.Threading.Tasks;
 
 namespace CSharpProjekt
 {
-    //Class used for communication with DeviantArt as well as Download the images.
-    class DAInterface
+    //Class used for communication with DeviantArt as well as for downloading the images.
+    sealed class DAInterface
     {
+        //We are doing all communications with this class, on other words it may become quite big.
+        //In short, we only want one instance of it to not waste ressources
+
+        private static readonly DAInterface instance = new DAInterface();
+
+        private DAInterface()
+        {
+        }
+
+        public static DAInterface Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
+
         private WebClient webclient = new WebClient();
+
         //currently using Downloads as tempfile folder. 
         //We should consider using AppData\Local\da_app\ (dir da_app will be made at installation)
         //C:%HOMEPATH%\AppData\Local\da_app
         private string tempdir = @"C:%HOMEPATH%\Downloads\";
+
         /// <summary>
         /// download the image located at dai.img_url
         /// </summary>
