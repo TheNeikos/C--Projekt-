@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace CSharpProjekt
@@ -13,7 +14,7 @@ namespace CSharpProjekt
         //We are doing all communications with this class, on other words it may become quite big.
         //In short, we only want one instance of it to not waste ressources
 
-        private static readonly DAInterface instance = new DAInterface();
+        private static DAInterface instance;
 
         private DAInterface()
         {
@@ -23,11 +24,28 @@ namespace CSharpProjekt
         {
             get
             {
+                if (instance == null)
+                {
+                    instance = new DAInterface();
+                }
                 return instance;
             }
         }
 
         private WebClient webclient = new WebClient();
+
+        /// <summary>
+        /// authenticates this app using client_id and client_secret at deviantart, so we may get stuff from their api
+        /// </summary>
+        private void authenticate()
+        {
+            HttpWebRequest request = WebRequest.CreateHttp("https://www.deviantart.com/oauth2/token?client_id=" + "" + "&client_secret=" + "" + "&grant_type=client_credentials");
+            HttpWebResponse response = (HttpWebResponse) request.GetResponse();
+            Stream inStr = response.GetResponseStream();
+            StreamReader strRead = new StreamReader(inStr);
+            string str = strRead.ReadToEnd();
+            //TODO: deserialize str from json to Token_Success, handle errors
+        }
 
         //currently using Downloads as tempfile folder. 
         //We should consider using AppData\Local\da_app\ (dir da_app will be made at installation)

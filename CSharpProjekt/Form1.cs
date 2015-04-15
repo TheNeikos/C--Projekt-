@@ -16,5 +16,10 @@ namespace CSharpProjekt
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DAInterface.Instance.authenticate();
+        }
     }
 }
