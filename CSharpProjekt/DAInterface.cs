@@ -44,7 +44,7 @@ namespace CSharpProjekt
             Stream inStr = response.GetResponseStream();
             StreamReader strRead = new StreamReader(inStr);
             string str = strRead.ReadToEnd();
-            //TODO: deserialize str from json to Token_Success, handle errors
+            //TODO: deserialize str from json to JsonAccessToken, handle errors
         }
 
         //currently using Downloads as tempfile folder. 
