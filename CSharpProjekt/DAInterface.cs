@@ -58,6 +58,17 @@ namespace CSharpProjekt
             //TODO: deserialize str from json to JsonAccessToken, handle errors
         }
 
+        private bool checkAuthentication()
+        {
+            HttpWebRequest request = WebRequest.CreateHttp("https://www.deviantart.com/api/v1/oauth2/placebo");
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            StreamReader strRead = new StreamReader(response.GetResponseStream());
+            JsonPlacebo placebo = JsonConvert.DeserializeObject<JsonPlacebo>(strRead.ReadToEnd());
+            if (placebo.status == "error")
+                return false;
+            return true;
+        }
+
         //currently using Downloads as tempfile folder. 
         //We should consider using AppData\Local\da_app\ (dir da_app will be made at installation)
         //C:%HOMEPATH%\AppData\Local\da_app
