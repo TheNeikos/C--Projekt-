@@ -54,8 +54,10 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="JsonReceiver\JsonAccessToken.cs" />
     <Compile Include="JsonReceiver\JsonDeviation.cs" />
     <Compile Include="JsonReceiver\JsonDeviationList.cs" />
+    <Compile Include="JsonReceiver\JsonPlacebo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

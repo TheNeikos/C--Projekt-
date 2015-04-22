@@ -5,6 +5,8 @@ using System.Net;
 using System.Text;
 using System.IO;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using CSharpProjekt.JsonReceiver;
 
 namespace CSharpProjekt
 {
@@ -34,16 +36,25 @@ namespace CSharpProjekt
 
         private WebClient webclient = new WebClient();
 
+        private JsonAccessToken accToken;
+
         /// <summary>
         /// authenticates this app using client_id and client_secret at deviantart, so we may get stuff from their api
         /// </summary>
-        private void authenticate()
+        private bool authenticate()
         {
             HttpWebRequest request = WebRequest.CreateHttp("https://www.deviantart.com/oauth2/token?client_id=" + "" + "&client_secret=" + "" + "&grant_type=client_credentials");
             HttpWebResponse response = (HttpWebResponse) request.GetResponse();
             Stream inStr = response.GetResponseStream();
             StreamReader strRead = new StreamReader(inStr);
             string str = strRead.ReadToEnd();
+            accToken = JsonConvert.DeserializeObject<JsonAccessToken>(str);
+            //if either the status is null or it says "error", go in there.
+            if (accToken.status != null ? accToken.status == "error" : true)
+            {
+                return false;
+            }
+            return true;
             //TODO: deserialize str from json to JsonAccessToken, handle errors
         }
 
