@@ -59,7 +59,7 @@ namespace CSharpProjekt
             }
             accessToken = accToken.access_token;
             return true;
-            //TODO: deserialize str from json to JsonAccessToken, handle errors
+            //handle errors
         }
 
         /// <summary>
@@ -89,6 +89,30 @@ namespace CSharpProjekt
         public void downloadImage(DAImage dai)
         {
             webclient.DownloadFile(dai.img_url, tempdir + dai.d_ID + dai.filetype);
+        }
+
+        /// <summary>
+        /// gets the next 'limit' deviationobjects starting at offset 'offset'
+        /// </summary>
+        /// <param name="offset"></param>
+        /// <param name="limit">max No. of deviations to get. max. 20</param>
+        /// <returns>List of DAImages</returns>
+        public List<DAImage> getHotImages(int offset, int limit)
+        {
+            List<DAImage> ldai = new List<DAImage>(limit);
+            HttpWebRequest request = WebRequest.CreateHttp("https://www.deviantart.com/api/v1/oauth2/browse/hot?offset=" 
+                + offset + "&limit=" + limit + "&access_token=" + accessToken);
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            StreamReader strRead = new StreamReader(response.GetResponseStream());
+            JsonDeviationList deviList = JsonConvert.DeserializeObject<JsonDeviationList>(strRead.ReadToEnd());
+            foreach (JsonDeviation devi in deviList.results) 
+            {
+                ldai.Add(new DAImage(devi.deviationid, devi.title, 
+                    devi.category, devi.author.username, 
+                    devi.content, devi.thumbs[0].src));
+            }
+            return ldai;
+            //TODO: error/exception handling.
         }
     }
 }

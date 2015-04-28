@@ -26,20 +26,20 @@ namespace CSharpProjekt
             string _title,
             string _category,
             string _author,
-            string _img_url,
-            string _filetype,
-            int _height,
-            int _width,
+            JsonReceiver.Content content,
             string _thumbnail_url)
         {
             d_ID = _d_ID;
             title = _title;
             category = _category;
             author = _author;
-            img_url = _img_url;
-            filetype = _filetype;
-            height = _height;
-            width = _width;
+            img_url = content.src;
+            for (int i = img_url.LastIndexOf('.'); i < img_url.Length; i++)
+            {
+                filetype += img_url[i];
+            }
+            height = content.height;
+            width = content.width;
             thumbnail_url = _thumbnail_url;
         }
     }

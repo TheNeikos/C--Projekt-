@@ -9,7 +9,7 @@ namespace CSharpProjekt.JsonReceiver
     /// <summary>
     /// This class is used to store information about a single Deviation which we'll get through the API
     /// </summary>
-    class JsonDeviation
+    public class JsonDeviation
     {
         public string deviationid;
         public string printid;
@@ -31,7 +31,7 @@ namespace CSharpProjekt.JsonReceiver
 
     //all following classes are helper classes for JsonDeviation
 
-    class Author
+    public class Author
     {
         public string userid;
         public string username;
@@ -39,13 +39,13 @@ namespace CSharpProjekt.JsonReceiver
         public string type;
     }
 
-    class Stats
+    public class Stats
     {
         public int comments;
         public int favourites;
     }
 
-    class Content
+    public class Content
     {
         public string src;
         public int filesize;
@@ -54,7 +54,7 @@ namespace CSharpProjekt.JsonReceiver
         public bool transparency;
     }
 
-    class Thumbnail
+    public class Thumbnail
     {
         public string src;
         public int height;
