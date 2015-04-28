@@ -41,6 +41,7 @@ namespace CSharpProjekt
         /// <summary>
         /// authenticates this app using client_id and client_secret at deviantart, so we may get stuff from their api
         /// </summary>
+        /// <returns>true on successful authentication</returns>
         private bool authenticate()
         {
             HttpWebRequest request = WebRequest.CreateHttp("https://www.deviantart.com/oauth2/token?client_id=" + "" + "&client_secret=" + "" + "&grant_type=client_credentials");
@@ -58,6 +59,10 @@ namespace CSharpProjekt
             //TODO: deserialize str from json to JsonAccessToken, handle errors
         }
 
+        /// <summary>
+        /// checks if we still are authenticated on DeviantArt.com
+        /// </summary>
+        /// <returns>true if still authenticated</returns>
         private bool checkAuthentication()
         {
             HttpWebRequest request = WebRequest.CreateHttp("https://www.deviantart.com/api/v1/oauth2/placebo");
