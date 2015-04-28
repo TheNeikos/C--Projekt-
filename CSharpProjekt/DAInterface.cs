@@ -38,6 +38,8 @@ namespace CSharpProjekt
 
         private JsonAccessToken accToken;
 
+        private string accessToken;
+
         /// <summary>
         /// authenticates this app using client_id and client_secret at deviantart, so we may get stuff from their api
         /// </summary>
@@ -55,6 +57,7 @@ namespace CSharpProjekt
             {
                 return false;
             }
+            accessToken = accToken.access_token;
             return true;
             //TODO: deserialize str from json to JsonAccessToken, handle errors
         }
