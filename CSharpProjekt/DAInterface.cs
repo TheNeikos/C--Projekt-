@@ -92,7 +92,7 @@ namespace CSharpProjekt
         }
 
         /// <summary>
-        /// gets the next 'limit' deviationobjects starting at offset 'offset'
+        /// gets the next 'limit' deviationobjects starting at offset 'offset' in category 'hot'
         /// </summary>
         /// <param name="offset"></param>
         /// <param name="limit">max No. of deviations to get. max. 20</param>
@@ -109,6 +109,30 @@ namespace CSharpProjekt
             {
                 ldai.Add(new DAImage(devi.deviationid, devi.title, 
                     devi.category, devi.author.username, 
+                    devi.content, devi.thumbs[0].src));
+            }
+            return ldai;
+            //TODO: error/exception handling.
+        }
+
+        /// <summary>
+        /// gets the next 'limit' deviationobjects starting at offset 'offset' in category 'newest'
+        /// </summary>
+        /// <param name="offset"></param>
+        /// <param name="limit">max No. of deviations to get. max. 20</param>
+        /// <returns>List of DAImages</returns>
+        public List<DAImage> getNewestImages(int offset, int limit)
+        {
+            List<DAImage> ldai = new List<DAImage>(limit);
+            HttpWebRequest request = WebRequest.CreateHttp("https://www.deviantart.com/api/v1/oauth2/browse/newest?offset="
+                + offset + "&limit=" + limit + "&access_token=" + accessToken);
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            StreamReader strRead = new StreamReader(response.GetResponseStream());
+            JsonDeviationList deviList = JsonConvert.DeserializeObject<JsonDeviationList>(strRead.ReadToEnd());
+            foreach (JsonDeviation devi in deviList.results)
+            {
+                ldai.Add(new DAImage(devi.deviationid, devi.title,
+                    devi.category, devi.author.username,
                     devi.content, devi.thumbs[0].src));
             }
             return ldai;
