@@ -138,5 +138,30 @@ namespace CSharpProjekt
             return ldai;
             //TODO: error/exception handling.
         }
+
+        /// <summary>
+        /// gets a list of DAImages related with the tag, starting at offset, with limit members
+        /// </summary>
+        /// <param name="tag">the tag required</param>
+        /// <param name="offset"></param>
+        /// <param name="limit">max. 20 deviations to get</param>
+        /// <returns></returns>
+        public List<DAImage> getImagesByTag(string tag, int offset, int limit)
+        {
+            List<DAImage> ldai = new List<DAImage>(limit);
+            HttpWebRequest request = WebRequest.CreateHttp("https://www.deviantart.com/api/v1/oauth2/browse/tags?tag=" + tag + "&offset="
+                + offset + "&limit=" + limit + "&access_token=" + accessToken);
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            StreamReader strRead = new StreamReader(response.GetResponseStream());
+            JsonDeviationList deviList = JsonConvert.DeserializeObject<JsonDeviationList>(strRead.ReadToEnd());
+            foreach (JsonDeviation devi in deviList.results)
+            {
+                ldai.Add(new DAImage(devi.deviationid, devi.title,
+                    devi.category, devi.author.username,
+                    devi.content, devi.thumbs[0].src));
+            }
+            return ldai;
+            //TODO: error/exception handling.
+        }
     }
 }
