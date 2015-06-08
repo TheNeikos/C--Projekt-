@@ -46,20 +46,28 @@ namespace CSharpProjekt
         /// <returns>true on successful authentication</returns>
         private bool authenticate()
         {
-            HttpWebRequest request = WebRequest.CreateHttp("https://www.deviantart.com/oauth2/token?client_id=" + "" + "&client_secret=" + "" + "&grant_type=client_credentials");
-            HttpWebResponse response = (HttpWebResponse) request.GetResponse();
-            Stream inStr = response.GetResponseStream();
-            StreamReader strRead = new StreamReader(inStr);
-            string str = strRead.ReadToEnd();
-            accToken = JsonConvert.DeserializeObject<JsonAccessToken>(str);
+            //no differentiation between exceptions. if anything happens, return false;
+            try
+            {
+                HttpWebRequest request = WebRequest.CreateHttp("https://www.deviantart.com/oauth2/token?client_id=" + "" + "&client_secret=" + "" + "&grant_type=client_credentials");
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                Stream inStr = response.GetResponseStream();
+                StreamReader strRead = new StreamReader(inStr);
+                string str = strRead.ReadToEnd();
+                accToken = JsonConvert.DeserializeObject<JsonAccessToken>(str);
+            } catch (Exception)
+            {
+                return false;
+            }
             //if either the status is null or it says "error", go in there.
-            if (accToken.status != null ? accToken.status == "error" : true)
+            if (accToken != null ? accToken.status == "error" : true)
             {
                 return false;
             }
             accessToken = accToken.access_token;
             return true;
             //handle errors
+            //DONE
         }
 
         /// <summary>
@@ -68,27 +76,40 @@ namespace CSharpProjekt
         /// <returns>true if still authenticated</returns>
         private bool checkAuthentication()
         {
-            HttpWebRequest request = WebRequest.CreateHttp("https://www.deviantart.com/api/v1/oauth2/placebo");
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            StreamReader strRead = new StreamReader(response.GetResponseStream());
-            JsonPlacebo placebo = JsonConvert.DeserializeObject<JsonPlacebo>(strRead.ReadToEnd());
-            if (placebo.status == "error")
+            JsonPlacebo placebo = null;
+            //no differentiation between exceptions, if anything happens, just return false.
+            try
+            {
+                HttpWebRequest request = WebRequest.CreateHttp("https://www.deviantart.com/api/v1/oauth2/placebo");
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                StreamReader strRead = new StreamReader(response.GetResponseStream());
+                placebo = JsonConvert.DeserializeObject<JsonPlacebo>(strRead.ReadToEnd());
+            }
+            catch (Exception)
+            {
                 return false;
-            return true;
+            }
+                if (placebo != null ? placebo.status == "error" : true)
+                    return false;
+                return true;
         }
 
         //currently using Downloads as tempfile folder. 
         //We should consider using AppData\Local\da_app\ (dir da_app will be made at installation)
         //C:%HOMEPATH%\AppData\Local\da_app
+        //webclient.DownloadFile doesnt resolve the directory to an absolute one
+        //->using relative directory for now
         private string tempdir = @"C:%HOMEPATH%\Downloads\";
 
         /// <summary>
         /// download the image located at dai.img_url
         /// </summary>
         /// <param name="dai">DAImage class containing core information about a deviation</param>
-        public void downloadImage(DAImage dai)
+        public string downloadImage(DAImage dai)
         {
-            webclient.DownloadFile(dai.img_url, tempdir + dai.d_ID + dai.filetype);
+            string filedir = dai.d_ID + dai.filetype;
+            webclient.DownloadFile(dai.img_url, filedir);
+            return filedir;
         }
 
         /// <summary>
@@ -99,6 +120,8 @@ namespace CSharpProjekt
         /// <returns>List of DAImages</returns>
         public List<DAImage> getHotImages(int offset, int limit)
         {
+            if (limit < 0 || limit >20)
+                throw new ArgumentOutOfRangeException();
             List<DAImage> ldai = new List<DAImage>(limit);
             HttpWebRequest request = WebRequest.CreateHttp("https://www.deviantart.com/api/v1/oauth2/browse/hot?offset=" 
                 + offset + "&limit=" + limit + "&access_token=" + accessToken);
@@ -113,6 +136,7 @@ namespace CSharpProjekt
             }
             return ldai;
             //TODO: error/exception handling.
+            //Done at function call
         }
 
         /// <summary>
@@ -123,6 +147,8 @@ namespace CSharpProjekt
         /// <returns>List of DAImages</returns>
         public List<DAImage> getNewestImages(int offset, int limit)
         {
+            if (limit < 0 || limit > 20)
+                throw new ArgumentOutOfRangeException();
             List<DAImage> ldai = new List<DAImage>(limit);
             HttpWebRequest request = WebRequest.CreateHttp("https://www.deviantart.com/api/v1/oauth2/browse/newest?offset="
                 + offset + "&limit=" + limit + "&access_token=" + accessToken);
@@ -137,6 +163,7 @@ namespace CSharpProjekt
             }
             return ldai;
             //TODO: error/exception handling.
+            //Done at function call
         }
 
         /// <summary>
@@ -148,6 +175,8 @@ namespace CSharpProjekt
         /// <returns></returns>
         public List<DAImage> getImagesByTag(string tag, int offset, int limit)
         {
+            if (limit < 0 || limit > 20)
+                throw new ArgumentOutOfRangeException();
             List<DAImage> ldai = new List<DAImage>(limit);
             HttpWebRequest request = WebRequest.CreateHttp("https://www.deviantart.com/api/v1/oauth2/browse/tags?tag=" + tag + "&offset="
                 + offset + "&limit=" + limit + "&access_token=" + accessToken);
@@ -162,6 +191,7 @@ namespace CSharpProjekt
             }
             return ldai;
             //TODO: error/exception handling.
+            //Done at function call
         }
     }
 }
