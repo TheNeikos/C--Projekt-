@@ -59,7 +59,7 @@ namespace CSharpProjekt
             {
                 return false;
             }
-            //if either the status is null or it says "error", go in there.
+            //if either the accToken is null or the status says "error", go in there.
             if (accToken != null ? accToken.status == "error" : true)
             {
                 return false;
